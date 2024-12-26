@@ -6,8 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TINI JS</title>
     <script defer src="./main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
-        .hidden { display: none; }
+        body {
+            background-color: black;
+            color: white;
+            text-align: center;
+        }
+
+        .hidden {
+            display: none;
+        }
+
         table {
             width: 100%;
         }
@@ -15,7 +25,7 @@
         table,
         th,
         td {
-            border: 1px solid black;
+            border: 1px solid white;
         }
 
         th,
@@ -66,25 +76,28 @@
         <button type="submit">Buscar</button>
     </form>
     <div id="messageBox" class="message"></div>
+
     <h2>Lista de Videojuegos</h2>
+
     <table id="gameTable">
         <thead>
             <tr>
                 <th>Nombre</th>
                 <th>Precio</th>
+                <th>Género</th>
             </tr>
         </thead>
         <tbody></tbody>
     </table>
 
-    <hr>
+    <h2>Inscripción de team</h2>
 
     <form id="form">
         <input type="text" id="game" placeholder="Juego" required>
         <input type="text" id="gamer1" placeholder="Jugador 1" required>
         <input type="text" id="gamer2" placeholder="Jugador 2" required>
         <input type="text" id="gamer3" placeholder="Jugador 3" required>
-        <button type="submit">Agregar</button>
+        <button id="sweetbutton" type="submit">Agregar</button>
     </form>
 
     <table id="data-table">

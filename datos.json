@@ -1,0 +1,42 @@
+[
+    {
+        "juego": "Counter-Strike 2",
+        "precio": 0.00,
+        "genero": "Disparos en primera persona"
+    },
+    {
+        "juego": "PUBG",
+        "precio": 0.00,
+        "genero": "Battle Royale / Disparos (FPP y TPP)"
+    },
+    {
+        "juego": "Call Of Duty: Warzone 2",
+        "precio": 0.00,
+        "genero": "Battle Royale / Disparos (FPP)"
+    },
+    {
+        "juego": "Subsistence",
+        "precio": 7.79,
+        "genero": "Mundo abierto / Fabricación y supervivencia"
+    },
+    {
+        "juego": "Rust",
+        "precio": 18.99,
+        "genero": "Mundo abierto / Fabricación y supervivencia / Disparos"
+    },
+    {
+        "juego": "Stranded Deep",
+        "precio": 19.99,
+        "genero": "Mundo abierto / Fabricación y supervivencia"
+    },
+    {
+        "juego": "Once Human",
+        "precio": 0.00,
+        "genero": "Fabricación y supervivencia / Terror"
+    },
+    {
+        "juego": "The Evil Within",
+        "precio": 11.99,
+        "genero": "Supervivencia terrorífica / Aventura"
+    }
+]

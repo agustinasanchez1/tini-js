@@ -96,9 +96,10 @@ document.getElementById('submitDay').addEventListener('click', () => {
 // Parte de búsqueda y verificación de disponibilidad de producto
 
 class Videojuego {
-    constructor(nombre, precio) {
+    constructor(nombre, precio, genero) {
         this.nombre = nombre.toUpperCase();
         this.precio = parseFloat(precio);
+        this.genero = genero;
     }
 
     sumaIva() {
@@ -107,21 +108,37 @@ class Videojuego {
 }
 
 const videojuegos = [];
-videojuegos.push(new Videojuego("Counter-Strike 2", "0.00"));
-videojuegos.push(new Videojuego("PUBG", "0.00"));
-videojuegos.push(new Videojuego("Call Of Duty: Warzone 2", "0.00"));
-videojuegos.push(new Videojuego("Subsistence", "7.79"));
-videojuegos.push(new Videojuego("Rust", "18.99"));
-videojuegos.push(new Videojuego("Stranded Deep", "19.99"));
-videojuegos.push(new Videojuego("Once Human", "0.00"));
-videojuegos.push(new Videojuego("The Evil Within", "11.99"));
+videojuegos.push(new Videojuego("Counter-Strike 2", "0.00", "Disparos en primera persona"));
+videojuegos.push(new Videojuego("PUBG", "0.00", "Battle Royale / Disparos (FPP y TPP)"));
+videojuegos.push(new Videojuego("Call Of Duty: Warzone 2", "0.00", "Battle Royale / Disparos (FPP)"));
+videojuegos.push(new Videojuego("Subsistence", "7.79", "Mundo abierto / Fabricación y supervivencia"));
+videojuegos.push(new Videojuego("Rust", "18.99", "Mundo abierto / Fabricación y supervivencia / Disparos"));
+videojuegos.push(new Videojuego("Stranded Deep", "19.99", "Mundo abierto / Fabricación y supervivencia"));
+videojuegos.push(new Videojuego("Once Human", "0.00", "Fabricación y supervivencia / Terror"));
+videojuegos.push(new Videojuego("The Evil Within", "11.99", "Supervivencia terrorífica / Aventura"));
+
+// const videojuegos = []; 
+
+// async function cargarVideojuegos() { 
+//     try { 
+//         const response = await fetch('datos.json'); 
+//         const data = await response.json(); 
+//         data.forEach(item => { 
+//             const videojuego = new Videojuego(item.nombre, item.precio); 
+//             videojuegos.push(videojuego); 
+//         }); 
+//         mostrarVideojuegos(); 
+//     } catch (error) { 
+//         console.error('Error al cargar los datos:', error); 
+//     } 
+// }
 
 function mostrarVideojuegos() {
     const tableBody = document.querySelector('#gameTable tbody');
     tableBody.innerHTML = '';
     videojuegos.forEach(v => {
         const row = document.createElement('tr');
-        row.innerHTML = `<td>${v.nombre}</td><td>${v.precio.toFixed(2)}</td>`;
+        row.innerHTML = `<td>${v.nombre}</td><td>${v.precio.toFixed(2)}</td><td>${v.genero}</td>`;
         tableBody.appendChild(row);
     });
 }
@@ -150,7 +167,7 @@ document.getElementById('searchForm').addEventListener('submit', function (e) {
 });
 
 document.addEventListener('DOMContentLoaded', mostrarVideojuegos);
-
+// document.addEventListener('DOMContentLoaded', cargarVideojuegos);
 
 // Parte donde el usuario podrá crear una tabla para publicar su equipo de hasta tres miembros
 
@@ -167,35 +184,47 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', (e) => {
         e.preventDefault();
 
-        const game = gameInput.value;
-        const gamer1 = gamer1Input.value;
-        const gamer2 = gamer2Input.value;
-        const gamer3 = gamer3Input.value;
+        Swal.fire({
+            title: 'Añadir',
+            text: '¿Está seguro de que desea añadir este nuevo equipo?',
+            icon: 'question',
+            confirmButtonText: 'Sí',
+            showCancelButton: true,
+            cancelButtonText: 'No'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const game = gameInput.value;
+                const gamer1 = gamer1Input.value;
+                const gamer2 = gamer2Input.value;
+                const gamer3 = gamer3Input.value;
 
-        if (game && gamer1 && gamer2 && gamer3) {
-            const nuevaEntrada = {
-                game: game,
-                gamer1: gamer1,
-                gamer2: gamer2,
-                gamer3: gamer3,
-            };
+                if (game && gamer1 && gamer2 && gamer3) {
+                    const nuevaEntrada = {
+                        game: game,
+                        gamer1: gamer1,
+                        gamer2: gamer2,
+                        gamer3: gamer3,
+                    };
 
-            const currentData = JSON.parse(localStorage.getItem('tableData')) || [];
+                    const currentData = JSON.parse(localStorage.getItem('tableData')) || [];
 
-            currentData.push(nuevaEntrada);
+                    currentData.push(nuevaEntrada);
 
-            localStorage.setItem('tableData', JSON.stringify(currentData));
+                    localStorage.setItem('tableData', JSON.stringify(currentData));
 
-            gameInput.value = '';
-            gamer1Input.value = '';
-            gamer2Input.value = '';
-            gamer3Input.value = '';
+                    gameInput.value = '';
+                    gamer1Input.value = '';
+                    gamer2Input.value = '';
+                    gamer3Input.value = '';
 
-            cargarTabla();
+                    cargarTabla();
 
-        } else {
-            alert('Debe completar todo el formulario. En caso de que no posea el equipo completo, coloque un guión.');
-        }
+                } else {
+                    Swal.fire('Debe completar todo el formulario. En caso de que no posea el equipo completo, coloque un guión.'
+                    );
+                }
+            }
+        });
     });
 
     function cargarTabla() {
